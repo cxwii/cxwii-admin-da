@@ -1,16 +1,27 @@
 {
-  "name": "cxwii-admin-da",
-  "version": "1.0.0",
-  "description": "cxwii-test",
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "main": "main.ts",
   "scripts": {
-    "dev": "nodemon -e ts,html,js,mjs,json --exec electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:web": "vite",
+    "electron": "wait-on tcp:9527 && electron .",
+    "dev:electron": "concurrently -k \"pnpm run dev:web\" \"pnpm run electron\"",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "cxwii",
-  "license": "ISC",
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
   "devDependencies": {
-    "electron": "^27.0.4"
+    "@types/node": "^20.9.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "concurrently": "^8.2.2",
+    "electron": "^27.0.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5",
+    "wait-on": "^7.1.0"
   }
 }
