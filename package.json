@@ -1,0 +1,16 @@
+{
+  "name": "cxwii-admin-da",
+  "version": "1.0.0",
+  "description": "cxwii-test",
+  "main": "main.ts",
+  "scripts": {
+    "dev": "nodemon -e ts,html,js,mjs,json --exec electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "cxwii",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^27.0.4"
+  }
+}
