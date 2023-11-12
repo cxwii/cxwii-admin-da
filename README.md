@@ -21,7 +21,7 @@ ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-
 pnpm run dev
 ```
 
-### 命令说明
+## 命令说明
 ```
 dev // 运行dev环境
 dev:vite // 用于支持dev(不用单独运行)
