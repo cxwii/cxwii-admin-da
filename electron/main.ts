@@ -2,23 +2,34 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-function createWindow () {
+const ELECTRON_ENV = process.env.ELECTRON_ENV
+
+const createWindow = () => {
   // 创建浏览器窗口
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.ts')
+      // 指定预加载脚本
+      preload: path.join(__dirname, 'preload.ts'),
+      // 允许在窗口中使用 Node.js 的 API
+      nodeIntegration: true
     }
   })
 
   // 加载 index.html
-  // mainWindow.loadFile('dist/index.html') // 此处跟electron官网路径不同，需要注意
-
-  mainWindow.loadURL("http://localhost:9527/")
+  // mainWindow.loadFile('dist/index.html') 将该行改为下面这一行，加载url
+  mainWindow.loadURL(
+    ELECTRON_ENV === 'dev'
+      ? 'http://localhost:9527'
+      :`file://${path.join(__dirname, '../dist/index.html')}`
+  );
 
   // 打开开发工具
-  // mainWindow.webContents.openDevTools()
+  if (ELECTRON_ENV === "dev") {
+    mainWindow.webContents.openDevTools()
+  }
+
 }
 
 // 这段程序将会在 Electron 结束初始化

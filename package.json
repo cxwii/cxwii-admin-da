@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "main.ts",
+  "main": "electron/main.ts",
   "scripts": {
-    "dev:web": "vite",
-    "electron": "wait-on tcp:9527 && electron .",
-    "dev:electron": "concurrently -k \"pnpm run dev:web\" \"pnpm run electron\"",
-    "build": "vue-tsc && vite build",
+    "dev": "concurrently -k \"pnpm run dev:vite --mode dev\" \"pnpm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "wait-on tcp:9527 && cross-env ELECTRON_ENV=dev electron .",
+    "build": "vue-tsc && vite build --mode pro",
+    "electron:build": "vite build --mode pro && electron-builder",
+    "electron": "cross-env ELECTRON_ENV=pro electron .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,10 +20,28 @@
     "@types/node": "^20.9.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "electron": "^27.0.4",
+    "electron-builder": "^24.6.4",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vue-tsc": "^1.8.5",
     "wait-on": "^7.1.0"
+  },
+  "build": {
+    "appId": "com.cxwii",
+    "productName": "cxwii-admin-da",
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "electron_dist"
+    }
   }
 }
