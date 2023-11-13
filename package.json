@@ -5,7 +5,7 @@
   "description": "一套基于vue3、element-plus、typesScript、vite4的cms解决方案。",
   "author": "cxwii <1471749154@qq.com>",
   "type": "module",
-  "main": "electron/main.ts",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "concurrently -k \"pnpm run dev:vite --mode dev\" \"pnpm run dev:electron\"",
     "dev:vite": "vite",
