@@ -19,6 +19,9 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1500,
     height: 800,
+    // 用于设置窗口的背景颜色
+    backgroundColor: 'pink',
+    // show: false,
     webPreferences: {
       // 渲染进程中是不允许使用nodejs的
       // 想要使用必须打开下面两个配置
@@ -41,6 +44,7 @@ const createWindow = () => {
 
   // 加载 index.html
   // mainWindow.loadFile('dist/index.html') 将该行改为下面这一行，加载url
+  // 注意loadFile和loadURL是互斥的
   mainWindow.loadURL(
     ELECTRON_ENV === 'dev'
       ? 'http://localhost:9527'
@@ -52,6 +56,13 @@ const createWindow = () => {
     mainWindow.webContents.openDevTools()
   }
 
+  // 等待加载的操作
+  // 先将show设置为false,不打开窗口
+  // 然后在这个生命周期中等待页面加载完毕再通过show()打开
+  // 这样便可以做其他的等待效果了
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show()
+  })
 }
 
 // 这段程序将会在 Electron 结束初始化
@@ -102,3 +113,26 @@ ipcMain.handle('test-event', async (event, ...args) => {
   // 可以用于在主进程中处理数据又返回回去
   return result
 })
+
+// 几个electron类似生命周期的api
+app.on('before-quit', (e) => {
+  console.log('应用开始关闭窗口之前触发 :>>', e)
+})
+
+app.on('browser-window-blur', (e) => {
+  console.log('窗口失去焦点触发 :>>', e)
+})
+
+app.on('browser-window-focus', (e) => {
+  console.log('窗口获得焦点触发 :>>', e)
+})
+
+// 让对应的窗口关闭
+// 真正的关闭,mac中也会直接关闭
+// app.quit()
+
+// 获取文件目录
+console.log('桌面目录 :>> ', app.getPath('desktop'))
+console.log('音乐目录 :>> ', app.getPath('music'))
+console.log('临时文件目录 :>> ', app.getPath('temp'))
+console.log('用户目录 :>> ', app.getPath('userData'))
