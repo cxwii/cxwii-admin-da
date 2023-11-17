@@ -9,11 +9,12 @@
 pnpm install
 ```
 
-## 依赖问题解决方案
+## electron依赖问题解决方案
 ```
-electron和electron-build都因为墙的问题很难安装,所以最优的解决办法就是给他们单独设置淘宝镜像,找到.npmrc(C:\Users\XXX\.npmrc)然后在最下面复制粘贴这两行就可以一劳永逸的解决问题了
-ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/
-ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/
+electron和electron-build都因为墙的问题很难安装(懂的都懂),挂梯也不能保证有效
+以及一些第三方包必须展平依赖才能正常打包(注意,这是大坑啊T-T)
+所以最优的解决办法就是给他们单独设置淘宝镜像和专门的配置,详细请看项目中.npmrc
+或者你直接把我的.npmrc扔到你项目的根路径下就可以了
 ```
 
 ## 运行dev环境
