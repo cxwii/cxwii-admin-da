@@ -7,7 +7,8 @@ const {
   globalShortcut,
   Menu,
   Tray,
-  nativeImage
+  nativeImage,
+  desktopCapturer
 } = require('electron')
 
 // 保存窗口状态
@@ -68,7 +69,7 @@ const mainMenu = (data) => {
 }
 
 // 托盘
-const creatTray = () => {
+const creatTray = (app, win) => {
   // 版本更新后这个方式不能读取图片
   // const tray = new Tray('../src/assets/imgs/vuex-store.png')
   // tray.setToolTip('cxwii-admin-da')
@@ -77,6 +78,21 @@ const creatTray = () => {
   const icon = nativeImage.createFromPath(path.join(__dirname, '../src/assets/imgs/vuex-store.png'))
   const tray = new Tray(icon)
   tray.setToolTip('cxwii-admin-da')
+
+  tray.on('click', (e) => {
+    console.log('托盘点击 :>> ', e)
+    if (e.shiftKey){
+      app.quit()
+    } else {
+      // 一般是隐藏就显示,显示绝不隐藏(增加用户点击率,我们遥遥领先)
+      win.isVisible() ? win.hide() : win.show()
+    }
+  })
+
+  // 会自动绑定到右键上
+  tray.setContextMenu(Menu.buildFromTemplate([
+    { label: '退出', role: 'quit' }
+  ]))
 }
 
 // main只能是cjs文件不能是ts或js
@@ -98,9 +114,6 @@ const createWindow = () => {
     defaultWidth: 1500,
     defaultHeight: 800
   })
-
-  // 创建托盘
-  creatTray()
   
   // 创建浏览器窗口
   const mainWindow = new BrowserWindow({
@@ -138,6 +151,10 @@ const createWindow = () => {
       sandbox: false
     }
   })
+
+  // 创建托盘
+  // 一般放在win创建完,这样可以传win进去做一些操作
+  creatTray(app, mainWindow)
 
   // 设置electron-win-state管理那个窗口(一定要设置不然不起效果)
   winState.manage(mainWindow)
@@ -313,6 +330,15 @@ ipcMain.handle('test-event', async (event, ...args) => {
   // 如果在这里做返回,便可以在preload中接收到
   // 可以用于在主进程中处理数据又返回回去
   return result
+})
+
+ipcMain.handle('getImg', async (e, sources) => {
+  console.log('sources :>> ', sources)
+  return desktopCapturer.getSources({
+    types: ['window', 'screen']
+  }).then((sources) => {
+    return sources
+  })
 })
 
 // // 几个electron类似生命周期的api

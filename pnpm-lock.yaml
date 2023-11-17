@@ -23,7 +23,7 @@ specifiers:
   concurrently: ^8.2.2
   cross-env: ^7.0.3
   echarts: ^5.4.2
-  electron: ^27.0.4
+  electron: ^25.6.0
   electron-builder: ^24.6.4
   electron-window-state: ^5.0.3
   element-plus: ^2.2.33
@@ -92,7 +92,7 @@ devDependencies:
   autoprefixer: 10.4.14_postcss@8.4.23
   concurrently: 8.2.2
   cross-env: 7.0.3
-  electron: 27.0.4
+  electron: 25.9.5
   electron-builder: 24.6.4
   eslint: 8.46.0
   eslint-config-prettier: 8.10.0_eslint@8.46.0
@@ -2890,8 +2890,8 @@ packages:
       mkdirp: 0.5.6
     dev: false
 
-  /electron/27.0.4:
-    resolution: {integrity: sha512-ob29rN1mtiyAXzF8HsHd5jh8bYKd9OQDakfdOExi0F7epU97gXPHaj6JPjbBJ/vpki5d32SyKVePW4vxeNZk1A==}
+  /electron/25.9.5:
+    resolution: {integrity: sha512-gM7GXUSd3JVRcYbBnNOtZeNnE5MCJjtZTT8QyIxJvpQ0Dh9dz3hTuEL62dOwnMFW/l47ACQ6es/8qi01P4QGZA==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -3038,7 +3038,7 @@ packages:
     dev: true
 
   /escape-string-regexp/4.0.0:
-    resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz}
+    resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
     dev: true
 
